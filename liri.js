@@ -30,7 +30,7 @@ function myTweets() {
                 let time = tweets.statuses[i].created_at;
                 let status = tweets.statuses[i].text;
                 let tweetNum = i + 1;
-                console.log(`Tweet ${tweetNum}. You tweeted "${status}" \non ${time}\n\n`)
+                console.log(`\nTweet ${tweetNum}. You tweeted "${status}" \non ${time}\n`)
             }
         }
     });
@@ -46,21 +46,23 @@ function spotifyThisSong() {
             let albumName = data.tracks.items[0].album.name;
             let songName = data.tracks.items[0].name;
             let artist = data.tracks.items[0].artists[0].name;
-            console.log("Artist : " + artist);
+            console.log("\nArtist : " + artist);
             console.log("Song : " + songName);
-            console.log("Album : " + albumName);
+            console.log("Album : " + albumName + "\n");
         });
     } else {
         spotify.search({ type: 'track', query: userRequest, limit: 1 }, function (err, data) {
             if (err) {
                 return console.log('Error occurred: ' + err);
             }
+
+            //may be worth spending time to create returns for data without values(such as if a value wasnt returned for 'album' it could say "unsure")
             let albumName = data.tracks.items[0].album.name;
             let songName = data.tracks.items[0].name;
             let artist = data.tracks.items[0].artists[0].name;
-            console.log("Artist : " + artist);
+            console.log("\nArtist : " + artist);
             console.log("Song : " + songName);
-            console.log("Album : " + albumName);
+            console.log("Album : " + albumName + "\n");
         });
     };
 };
@@ -71,20 +73,54 @@ function movieThis() {
         if (!error && response.statusCode === 200) {
             // Then we print out the imdbRating
             var parsedBody = JSON.parse(body);
-            console.log("Title: " + parsedBody.Title);
+            console.log("\nTitle: " + parsedBody.Title);
             console.log("Year: " + parsedBody.Year);
             console.log("imdb Rating: " + parsedBody.imdbRating);
             console.log("Rotten Tomatoe's rating: " + parsedBody.Ratings[1].Value);
             console.log("Country made in: " + parsedBody.Country);
             console.log("Launguage: " + parsedBody.Language);
             console.log("Plot :" + parsedBody.Plot);
-            console.log("Actors :" + parsedBody.Actors);
+            console.log("Actors :" + parsedBody.Actors + "\n");
         }
     });
 }
 
 function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
 
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+            return console.log(error);
+        }
+
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+
+        // We will then re-display the content as an array for later use.
+        console.log('\nYour command: ' + dataArr[0] + ' ' + dataArr[1]);
+
+        task = dataArr[0];
+        userRequest = dataArr[1];
+
+        //Thoughts: there needs to be logic which checks the parts of the array and uses the switch case below to handle the arguments(the trick they want you to fall for is that you think you need to put these values back into the command line but this is struly serverside shit right here)
+        switch (task) {
+            case 'my-tweets':
+                myTweets()
+                break;
+            case 'spotify-this-song':
+                spotifyThisSong()
+                break;
+            case 'movie-this':
+                movieThis()
+                break;
+            //I commented this our because i feel like it can cause a fucked up loop. i will test this later.
+            // case 'do-what-it-says':
+            //     doWhatItSays()
+            //     break;
+            default:
+                console.log('you a asshole');
+        }
+    });
 }
 
 //set up logic for functions to play in
@@ -98,9 +134,9 @@ switch (task) {
     case 'movie-this':
         movieThis()
         break;
-    // case 'do-what-it-says':
-    //     doWhatItSays()
-    //     break;
+    case 'do-what-it-says':
+        doWhatItSays()
+        break;
     default:
         console.log('you a asshole');
 }
