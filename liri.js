@@ -19,16 +19,16 @@ var userRequest = nodeArgs[3];
 //Set up Functions for use in logic
 function myTweets() {
     var params = {
-        q: 'Mikle_Jones',
+        screen_name: 'mikle_jones',
         count: 20,
-        lang: 'en'
+        result_type: 'recent'
     };
-    client.get('search/tweets', params, function (error, tweets, response) {
+    client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
             //for loop that pulls just the tweet and when they were created
-            for (let i = 0; i < tweets.statuses.length; i++) {
-                let time = tweets.statuses[i].created_at;
-                let status = tweets.statuses[i].text;
+            for (let i = 0; i < tweets.length; i++) {
+                let time = tweets[i].created_at;
+                let status = tweets[i].text;
                 let tweetNum = i + 1;
                 console.log(`\nTweet ${tweetNum}. You tweeted "${status}" \non ${time}\n`)
             }
@@ -46,10 +46,12 @@ function spotifyThisSong() {
             let albumName = data.tracks.items[0].album.name;
             let songName = data.tracks.items[0].name;
             let artist = data.tracks.items[0].artists[0].name;
+            let previewLink = data.tracks.items[0].external_urls.spotify;
             console.log("\nArtist : " + artist);
             console.log("Song : " + songName);
+            console.log("Preview Link: " + previewLink);
             console.log("Album : " + albumName + "\n");
-        });
+                    });
     } else {
         spotify.search({ type: 'track', query: userRequest, limit: 1 }, function (err, data) {
             if (err) {
@@ -60,12 +62,15 @@ function spotifyThisSong() {
             let albumName = data.tracks.items[0].album.name;
             let songName = data.tracks.items[0].name;
             let artist = data.tracks.items[0].artists[0].name;
+            let previewLink = data.tracks.items[0].external_urls.spotify;
             console.log("\nArtist : " + artist);
             console.log("Song : " + songName);
+            console.log("Preview Link: " + previewLink);
             console.log("Album : " + albumName + "\n");
-        });
+                    });
     };
 };
+
 
 function movieThis() {
     request(`http://www.omdbapi.com/?t=${userRequest}&apikey=trilogy`, function (error, response, body) {
