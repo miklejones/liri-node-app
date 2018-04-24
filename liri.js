@@ -127,10 +127,10 @@ function movieThis() {
             if (!error && response.statusCode === 200) {
                 // Then we print out the imdbRating
                 var parsedBody = JSON.parse(body);
-                console.log(`\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.plot}\nActors: ${parsedBody.Actors}`);
+                console.log(`\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.Plot}\nActors: ${parsedBody.Actors}`);
             }
             fs.appendFile(
-                "liri-log.txt", `\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.plot}\nActors: ${parsedBody.Actors}`, function (err) {
+                "liri-log.txt", `\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.Plot}\nActors: ${parsedBody.Actors}`, function (err) {
                     if (err) {
                         return console.log(err);
                     }
@@ -142,25 +142,14 @@ function movieThis() {
         newTaskCalled();
 
         request(`http://www.omdbapi.com/?t=${userRequest}&apikey=trilogy`, function (error, response, body) {
-
-
-
-
-
-
-
             // If there were no errors and the response code was 200 (i.e. the request was successful)...
             if (!error && response.statusCode === 200) {
                 // Then we print out the imdbRating
                 var parsedBody = JSON.parse(body);
-                console.log(`\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.plot}\nActors: ${parsedBody.Actors}`);
+                console.log(`\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.Plot}\nActors: ${parsedBody.Actors}`);
             }
-
-
-
-
             fs.appendFile(
-                "liri-log.txt", `\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.plot}\nActors: ${parsedBody.Actors}`, function (err) {
+                "liri-log.txt", `\nTitle: ${parsedBody.Title}\nYear: ${parsedBody.Year}\nimdb Rating: ${parsedBody.imdbRating}\nRotten Tomatoe's rating: ${parsedBody.Ratings[1].Value} \nCountry made in: ${parsedBody.Country}\nLanguage: ${parsedBody.Language}\nPlot: ${parsedBody.Plot}\nActors: ${parsedBody.Actors}`, function (err) {
                     if (err) {
                         return console.log(err);
                     }
